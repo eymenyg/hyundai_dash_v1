@@ -1,4 +1,4 @@
-1. Install Python if not installed: https://www.python.org
+1. Install Python if not installed: https://www.python.org. Make sure to add Python to PATH when asked.
 2. Install the pyserial package by opening a cmd/PowerShell/Terminal window and running the command: pip install pyserial
 3. Open Device Manager in Windows, go to Ports (COM & LPT), check which port is the Arduino on. You can determine it
     by unplugging and plugging it back and observing the window.
