@@ -12,7 +12,7 @@ local M = {}
 local function init() end
 local function reset() end
 local function getAddress()        return settings.getValue("protocols_outgauge_address") end        -- return "127.0.0.1"
-local function getPort()           return 9999 end
+local function getPort()           return 9532 end
 -- local function getMaxUpdateRate()  return settings.getValue("protocols_outgauge_maxUpdateRate") end  -- return 60
 local function getMaxUpdateRate()  return 10 end  -- return 60
 
