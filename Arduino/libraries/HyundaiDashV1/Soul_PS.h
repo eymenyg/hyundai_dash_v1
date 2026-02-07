@@ -4,7 +4,7 @@
 
 HyundaiDashV1 cluster(
     // HS1Role, HS2Role
-    HyundaiDashV1::HighSideRole::ILL, HyundaiDashV1::HighSideRole::NON,
+    HyundaiDashV1::HighSideRole::ILL, HyundaiDashV1::HighSideRole::SRS,
     // LS1Role, LS2Role
     HyundaiDashV1::LowSideRole::OIL, HyundaiDashV1::LowSideRole::BAT,
     // C_CANLightID, tailLightID, tailLightIndex0, tailLightIndex0Value, tailLightIndex1, tailLightIndex1Value
