@@ -92,5 +92,13 @@ def run(COM_PORT, log_func=print, stop_event=None, scale_rpm=False):
                     time.sleep(interval)
 
     finally:
+        try:
+            # Trigger Arduino reset via DTR
+            ser.dtr = False
+            time.sleep(0.1)
+            ser.dtr = True
+            time.sleep(0.1)
+        except:
+            pass
         ser.close()
         log_func("Shutting down ATS/ETS2 script")
