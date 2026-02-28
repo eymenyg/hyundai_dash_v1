@@ -2,31 +2,23 @@
 -- If a copy of the bCDDL was not distributed with this
 -- file, You can obtain one at http://beamng.com/bCDDL-1.1.txt
 
--- ========================================================================================================================= --
--- For information on how to implement and distribute your custom UDP protocol, please check https://go.beamng.com/protocols --
--- ========================================================================================================================= --
 
 -- generic outgauge implementation based on LiveForSpeed
 local M = {}
 
 local function init() end
 local function reset() end
-local function getAddress()        return settings.getValue("protocols_outgauge_address") end        -- return "127.0.0.1"
+local function getAddress()        return "127.0.0.1" end
 local function getPort()           return 9532 end
--- local function getMaxUpdateRate()  return settings.getValue("protocols_outgauge_maxUpdateRate") end  -- return 60
-local function getMaxUpdateRate()  return 10 end  -- return 60
+local function getMaxUpdateRate()  return 10 end  -- 10 Hz
 
 local function isPhysicsStepUsed()
-  return false -- use graphics step. performance cost is ok. the update rate could reach UP TO min(getMaxUpdateRate(), graphicsFramerate)
-  --return true-- use physics step. performance cost is big. the update rate could reach UP TO min(getMaxUpdateRate(), 2000 Hz)
+  return false
 end
 
 local function getStructDefinition()
   -- the original protocol documentation can be found at LFS/docs/InSim.txt
   return [[
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////// IMPORTANT: if you modify this definition, also update the docs at https://go.beamng.com/protocols /////////
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	short		ignition;		// 0, 1, 2, 3
     short		speed;			// Wheel speed in km/h
     short		rpm;			// RPM
@@ -44,9 +36,6 @@ end
 
 
 
---//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
---////// IMPORTANT: if you modify this definition, also update the docs at https://go.beamng.com/protocols /////////
---//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -- DL_x - bits for dashLights and showLights
 local DL_LOHIBEAM	  = 2 ^ 0    -- low beam
 local DL_HIGHBEAM     = 2 ^ 1    -- high beam

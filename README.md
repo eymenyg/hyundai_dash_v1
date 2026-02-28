@@ -1,6 +1,6 @@
 # How to use the software
 1. Download the repository by clicking the green **Code** button and then **Download ZIP**
-    - For BeamNG.drive, copy the **hyundai_gauges_(latest).zip** file under the **BeamNG/mods** folder to **C:\Users\\*username*\\AppData\Local\BeamNG\BeamNG.drive\current\mods**
+    - For BeamNG.drive, copy the **hyundai_dash_v1_(latest-date).zip** file under the **BeamNG** folder to **C:\Users\\*username*\\AppData\Local\BeamNG\BeamNG.drive\current\mods**
     - For ATS/ETS2, install [ETS2 Telemetry Server](https://github.com/Funbit/ets2-telemetry-server?tab=readme-ov-file#installation) and run it
         - From the **Network Interfaces** menu, select **Loopback Pseudo-Interface 1**. The server IP should be **127.0.0.1**
 2. Download **hdv1_gui.exe** from the **Releases** section on the right side of the page
