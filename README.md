@@ -11,5 +11,5 @@
 
 # (Optional) Building the executable
 1. Install Python if not installed: [Python.org](https://www.python.org). Make sure to add Python to PATH when asked.
-2. Install the pyserial and pyinstaller packages by opening a cmd/PowerShell/Terminal window and running the command: `pip install pyserial pyinstaller`
+2. Install the pyserial and pyinstaller packages by opening a cmd/PowerShell/Terminal window and running the command: `pip install pyserial pyinstaller requests`
 3. Navigate to the *scripts* folder and run `pyinstaller --onefile --windowed hdv1_gui.py`. The hdv1_gui.exe will be under the *dist* folder.
