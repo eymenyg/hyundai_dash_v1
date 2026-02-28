@@ -70,6 +70,7 @@ def run_script():
     # Disable dropdowns and toggle button
     game_menu.config(state="disabled")
     port_menu.config(state="disabled")
+    scale_checkbox.config(state="disabled")
     start_button.config(text="Stop", command=stop_script)
 
     # Clear log
@@ -82,7 +83,7 @@ def run_script():
     def target():
         module = GAME_MODULES[game]
         try:
-            module.run(port, log_func=log, stop_event=stop_event)
+            module.run(port, log_func=log, stop_event=stop_event, scale_rpm=scale_rpm_var.get())
         except Exception as e:
             log(f"Error: {e}")
 
@@ -102,6 +103,7 @@ def stop_script():
     # Re-enable GUI controls
     game_menu.config(state="readonly")
     port_menu.config(state="readonly")
+    scale_checkbox.config(state="normal")
     start_button.config(text="Start", command=run_script)
     status_label.config(text="No script running", fg="gray")
 
@@ -125,6 +127,8 @@ root.resizable(False, False)
 game_var = tk.StringVar()
 port_var = tk.StringVar()
 
+scale_rpm_var = tk.BooleanVar(value=False)
+
 # Widgets
 tk.Label(root, text="Select Game").pack(pady=(10, 5))
 game_menu = ttk.Combobox(
@@ -143,6 +147,13 @@ port_menu = ttk.Combobox(
     state="readonly"
 )
 port_menu.pack()
+
+scale_checkbox = tk.Checkbutton(
+    root,
+    text="Scale RPM",
+    variable=scale_rpm_var
+)
+scale_checkbox.pack(pady=(5, 5))
 
 start_button = tk.Button(
     root,

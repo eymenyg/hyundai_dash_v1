@@ -10,12 +10,15 @@ BAUD_RATE = 115200
 START_BYTE = 0xAA
 END_BYTE = 0x55
 
+set_idle_rpm = 500
+cluster_max_rpm = 8000
+
 def remap(x, in_min, in_max, out_min, out_max):
     if in_max == in_min: 
         return out_min
     return int((x - in_min) * (out_max - out_min) / (in_max - in_min))
 
-def run(COM_PORT, log_func=print, stop_event=None):
+def run(COM_PORT, log_func=print, stop_event=None, scale_rpm=False):
     """Main function to start ATS/ETS2 telemetry"""
     ser = serial.Serial(COM_PORT, BAUD_RATE, timeout=0.1)  # short timeout for quick exit
 
@@ -37,8 +40,11 @@ def run(COM_PORT, log_func=print, stop_event=None):
 
             ign = 2 if t["electricOn"] else 0
             speed = abs(int(t["speed"]))
-            rpm = remap(t["engineRpm"], 0, t["engineRpmMax"], 0, 6500)
-            idle_rpm = remap(500, 0, t["engineRpmMax"], 0, 6500)
+            rpm = abs(int(t["engineRpm"]))
+            idle_rpm = set_idle_rpm
+            if scale_rpm:
+                rpm = remap(rpm, 0, t["engineRpmMax"], 0, cluster_max_rpm)
+                idle_rpm = remap(idle_rpm, 0, t["engineRpmMax"], 0, cluster_max_rpm)
             water = abs(int(t["waterTemperature"]))
 
             dg = t["displayedGear"]

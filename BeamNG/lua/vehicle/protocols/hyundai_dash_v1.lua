@@ -27,6 +27,7 @@ local function getStructDefinition()
     short		engTemp;		// *C
     short       showLights;		// Dash lights currently switched on
 	short		idleRPM;		// idle rpm of current vehicle
+    short       maxRPM;         // max rpm of current vehicle
 	short		fuelCapacity;	// Fuel capacity in liters
 	short		fuelVolume;		// Fuel volume in liters
 	short       throttle;       // Throttle output in game
@@ -50,6 +51,8 @@ local DL_CRUISE       = 2 ^ 9    -- cruise control
 local DL_ABS          = 2 ^ 10   -- ABS active
 local DL_SRS          = 2 ^ 11   -- SRS light
 
+local cluster_max_rpm = 8000
+
 local function fillStruct(o, dtSim)
   if not electrics.values.watertemp or not electrics.values.fuel then
     -- vehicle not completly initialized or not a vehicle, skip sending package
@@ -65,6 +68,7 @@ local function fillStruct(o, dtSim)
   o.gearIndex = electrics.values.gearIndex or 0
   o.engTemp = math.max(math.floor(electrics.values.watertemp or 0), 0)
   o.idleRPM = electrics.values.idlerpm or 0
+  o.maxRPM = electrics.values.maxrpm or cluster_max_rpm
   o.fuelCapacity = math.floor((electrics.values.fuelCapacity or 0)*100) or 0 -- e.g 60, send 6000
   o.fuelVolume = math.floor((electrics.values.fuelVolume or 0)*100) or 0 -- e.g 54.2538, send 5425
   o.throttle = math.floor((electrics.values.throttle or 0)*100) or 0

@@ -11,7 +11,14 @@ BAUD_RATE = 115200
 START_BYTE = 0xAA
 END_BYTE = 0x55
 
-def run(COM_PORT, log_func=print, stop_event=None):
+cluster_max_rpm = 8000
+
+def remap(x, in_min, in_max, out_min, out_max):
+    if in_max == in_min: 
+        return out_min
+    return int((x - in_min) * (out_max - out_min) / (in_max - in_min))
+
+def run(COM_PORT, log_func=print, stop_event=None, scale_rpm=False):
     """Main function to start BeamNG telemetry"""
     udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     udp_socket.bind((UDP_HOST, UDP_PORT))
@@ -35,13 +42,13 @@ def run(COM_PORT, log_func=print, stop_event=None):
             except socket.timeout:
                 continue
 
-            if len(data) < 24:
+            if len(data) < 26:
                 continue
 
             (
                 ign, speed, rpm, gear, gear_idx, water, lights,
-                idle_rpm, fuel_cap, fuel_vol, throttle, clutch
-            ) = struct.unpack('<HHHHHHHHHHHH', data[:24])
+                idle_rpm, max_rpm, fuel_cap, fuel_vol, throttle, clutch
+            ) = struct.unpack('<HHHHHHHHHHHHH', data[:26])
 
             # Clamp values
             ign &= 0xFF
@@ -50,6 +57,10 @@ def run(COM_PORT, log_func=print, stop_event=None):
             water &= 0xFF
             throttle = min(throttle, 100)
             clutch = min(clutch, 100)
+            
+            if scale_rpm:
+                rpm = remap(rpm, 0, max_rpm, 0, cluster_max_rpm)
+                idle_rpm = remap(idle_rpm, 0, max_rpm, 0, cluster_max_rpm)
 
             packet = struct.pack(
                 "<BBHHbBBHHHHBBB",
