@@ -3,6 +3,7 @@
     - For BeamNG.drive, copy the **hyundai_dash_v1_(latest-date).zip** file under the **BeamNG** folder to **C:\Users\\*username*\\AppData\Local\BeamNG\BeamNG.drive\current\mods**
     - For ATS/ETS2, install [ETS2 Telemetry Server](https://github.com/Funbit/ets2-telemetry-server?tab=readme-ov-file#installation) and run it
         - From the **Network Interfaces** menu, select **Loopback Pseudo-Interface 1**. The server IP should be **127.0.0.1**
+    - For Assetto Corsa, install the **hyundaidashv1_ac_(latest-date).zip** under the **Assetto Corsa** folder. You will also need [Content Manager](https://acstuff.club/app/) and [Custom Shaders Pack](https://acstuff.club/patch/).
 2. Download **hdv1_gui.exe** from the **Releases** section on the right side of the page
 3. Open Device Manager in Windows, go to **Ports (COM & LPT)**, check which port is the Arduino on. You can determine it
     by unplugging and plugging it back and observing the window.

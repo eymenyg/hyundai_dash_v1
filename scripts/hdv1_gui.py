@@ -6,13 +6,15 @@ import queue
 import time
 import beamng
 import ats_ets2
+import assettocorsa
 
 # =========================
 # Configuration
 # =========================
 GAME_MODULES = {
+    "Assetto Corsa": assettocorsa,
     "ATS/ETS2": ats_ets2,
-    "BeamNG.drive": beamng,
+    "BeamNG.drive": beamng
 }
 
 # =========================
